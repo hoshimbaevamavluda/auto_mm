@@ -20,7 +20,7 @@ class Cart_page(Base):
     cart_page_title = "//span[text() = 'Ваша корзина,']"
     product_name_in_cart_1 = "(//a[@data-test-id='link__product-title'])[1]"
     product_name_in_cart_2 = "(//a[@data-test-id='link__product-title'])[2]"
-    button_go_checkout = "//div[normalize-space(text()) = 'Перейти к оформлению']"
+    button_go_checkout = "//button[@data-test-id='button__go-checkout']"
 
 
     # Getters
@@ -49,7 +49,7 @@ class Cart_page(Base):
     def click_checkout_button(self):
         self.get_checkout_button().click()
         print("Клик кнопки корзины")
-        time.sleep(5)
+        time.sleep(10)
 
     def click_button_go_checkout(self):
         self.driver.execute_script("arguments[0].click();", self.get_button_go_checkout().click())
@@ -64,7 +64,8 @@ class Cart_page(Base):
         self.click_checkout_button()
         time.sleep(2)
         self.text_checking(self.get_cart_page_title(), 'Ваша корзина,')
-        time.sleep(5)
+        time.sleep(10)
+        self.get_screenshot()
         self.click_button_go_checkout()
         Logger.add_end_step(url=self.driver.current_url, method="product_confirmation")
 
