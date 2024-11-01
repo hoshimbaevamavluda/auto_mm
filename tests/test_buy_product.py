@@ -69,7 +69,7 @@ def test_buy_product_2(set_up, set_group):
 #     options.add_experimental_option('excludeSwitches', ['enable-logging'])
 #     options.add_argument("--headless")
 #     chrome_service = Service(
-#         executable_path='C:\\Users\\admin\\Desktop\\QA\\автоматизация_тест\\resourse\\chrome\\chromedriver.exe',
+#         executable_path='путь к файлу chromedriver.exe',
 #         chrome_options=options)
 #     driver = webdriver.Chrome(service=chrome_service)
 #
@@ -101,7 +101,7 @@ def test_buy_product_2(set_up, set_group):
 #     options.add_experimental_option('excludeSwitches', ['enable-logging'])
 #     options.add_argument("--headless")
 #     chrome_service = Service(
-#         executable_path='C:\\Users\\admin\\Desktop\\QA\\автоматизация_тест\\resourse\\chrome\\chromedriver.exe',
+#         executable_path='путь к файлу chromedriver.exe',
 #         chrome_options=options)
 #     driver = webdriver.Chrome(service=chrome_service)
 #
