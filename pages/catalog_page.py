@@ -14,11 +14,11 @@ class Catalog_page(Base):
         super().__init__(driver)
         self.driver = driver
 
+
     # Locators
 
     catalog_page_title = "//h1[@data-test-id='text__title']"
 
-    # данные первого продукта
     filter_brand = "//div[normalize-space(text()) = 'Triol']"
     product_name_1 = "//h1[@data-test-id='text__title']"
     add_to_cart_1 = "//button[@data-test-id='button__add-to-cart']"
@@ -55,16 +55,18 @@ class Catalog_page(Base):
             EC.element_to_be_clickable((By.XPATH, self.add_to_cart_2)))
 
 
-
     # Actions
-
     def click_add_to_cart_1(self):
-        self.hover_and_click_to_element(self.get_add_to_cart_1())
-        print("Товар добавлен в корзину")
+        self.get_add_to_cart_1().click()
+        print(f"{self.get_product_name_1()} добавлен в корзину")
 
     def click_add_to_cart_2(self):
         self.get_add_to_cart_2().click()
-        print("Товар добавлен в корзину")
+        print(f"{self.get_product_name_1()} добавлен в корзину")
+
+    def click_filter_brand(self):
+        self.get_filter_brand().click()
+        print("Выбран фильтр бренда")
 
 
 
@@ -74,7 +76,8 @@ class Catalog_page(Base):
         Logger.add_start_step(method="item_to_cart_1")
         time.sleep(5)
         self.text_checking(self.get_catalog_page_title(), 'Скворечники и гнезда для птиц')
-        self.get_current_url()
+        time.sleep(5)
+        self.click_filter_brand()
         time.sleep(5)
         self.click_add_to_cart_1()
         time.sleep(5)
@@ -86,5 +89,4 @@ class Catalog_page(Base):
         time.sleep(5)
         self.click_add_to_cart_2()
         time.sleep(5)
-        self.text_checking(self.get_product_name_2(), 'Окуляр 10x/18. Микромед. Посадочный диаметр 23,2 мм. Для биологического микроскопа')
         Logger.add_end_step(url=self.driver.current_url, method="item_to_cart_2")

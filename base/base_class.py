@@ -22,8 +22,8 @@ class Base():
     @staticmethod
     def text_checking(word, result):
         value_word = word.text
-        assert value_word == result, 'Данный товар не найден'
-        print("Good value_word:" + value_word)
+        assert value_word == result, 'Данные не соответствуют'
+        print("Данные идентичны:" + value_word)
 
     '''Метод Screenshot'''
 
@@ -43,33 +43,17 @@ class Base():
 
     def hover_to_element(self, element):
         try:
-            # Наведение на элемент с использованием ActionChains
-            actions = ActionChains(self.driver)
-            actions.move_to_element(element).perform()
-            print(f"Наведение на элемент после прокрутки: {element.text}")
-
-        except Exception as e:
-            print(f"Произошла ошибка при наведении на элемент: {e}")
-
-    '''Метод навигации и клика на элемент'''
-
-    def hover_and_click_to_element(self, element):
-        try:
             # Прокручиваем элемент в зону видимости
             self.driver.execute_script("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", element)
 
             # Наведение на элемент с использованием ActionChains
             actions = ActionChains(self.driver)
             actions.move_to_element(element).perform()
-            print(f"Наведение на элемент после прокрутки: {element.text}")
+            print(f"Наведение после прокрутки на: {element.text}")
             time.sleep(3)
 
-            # Клик на элемент
-            element.click()
-            print("Элемент успешно кликнут.")
-
         except Exception as e:
-            print(f"Произошла ошибка при наведении на элемент или клике: {e}")
+            print(f"Произошла ошибка при наведении на: {e}")
 
     '''Метод для ввода текста'''
     def input_text(self, element, text, field_name=""):

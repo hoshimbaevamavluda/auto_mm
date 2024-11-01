@@ -52,7 +52,8 @@ class Client_information_page(Base):
         self.input_text(self.get_phone_number(), phone_number, "номера телефона")
 
     def click_checkbox(self):
-        self.hover_and_click_to_element(self.get_checkbox())
+        self.hover_to_element(self.get_checkbox())
+        self.get_checkbox().click()
         print("Клик чекбокса")
 
     # Metods

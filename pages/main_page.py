@@ -54,7 +54,7 @@ class Main_page(Base):
 
     # Actions
     def click_closing_advertising(self):
-        self.hover_and_click_to_element(self.get_closing_advertising())
+        self.get_closing_advertising().click()
         print("Убрать рекламу")
 
     def click_btn_catalog(self):
@@ -63,23 +63,22 @@ class Main_page(Base):
 
     def click_pet_supplies_section(self):
         self.hover_to_element(self.get_pet_supplies_section())
-        print("Наведение на 'Зоотовары' для раскрытия подкатегорий")
 
     def click_birdhouses_for_birds(self):
-        locator = self.get_birdhouses_for_birds()
-        locator.click()
-        # self.hover_and_click_to_element(locator, 40)
+        self.get_birdhouses_for_birds().click()
         print("Переход на страницу 'Скворечники и гнезда'")
 
     def click_electronics_section(self):
         self.hover_to_element(self.get_electronics_section())
-        print("Наведение на 'Раздел электроники' для раскрытия подкатегорий")
 
     def click_eyepieces_section(self):
-        self.hover_and_click_to_element(self.get_eyepieces_section())
+        self.hover_to_element(self.get_eyepieces_section())
+        self.get_eyepieces_section().click()
         print("Переход на страницу 'Окуляры'")
 
+
     # Metods
+
     def open_birdhouses_page(self):
         Logger.add_start_step(method="open_birdhouses_page")
         self.driver.get(self.url)
@@ -92,6 +91,7 @@ class Main_page(Base):
         time.sleep(3)
         self.click_birdhouses_for_birds()
         time.sleep(5)
+        self.get_current_url()
         Logger.add_end_step(url=self.driver.current_url, method="open_birdhouses_page")
 
     def open_eyepieces_page(self):
