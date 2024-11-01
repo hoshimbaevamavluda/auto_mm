@@ -10,77 +10,119 @@ from pages.catalog_page import Catalog_page
 from pages.main_page import Main_page
 
 
-# задать очередность тесту
-# @pytest.mark.run(order=2)
-
 def test_buy_product_1(set_up, set_group):
     # очистка лишних записей в терминале с помощью options
     options = Options()
     options.add_experimental_option('excludeSwitches', ['enable-logging'])
-    chrome_service = Service(executable_path='C:\\Users\\admin\\Desktop\\QA\\автоматизация_тест\\resourse\\chrome\\chromedriver.exe', chrome_options=options)
+    options.add_argument("--headless")
+    chrome_service = Service(
+        executable_path='C:\\Users\\admin\\Desktop\\QA\\автоматизация_тест\\resourse\\chrome\\chromedriver.exe',
+        chrome_options=options)
     driver = webdriver.Chrome(service=chrome_service)
 
-    print("Start test")
+    print("Start test1")
 
     mp = Main_page(driver)
-    time.sleep(3)
-    mp.open_toys_page()
-
-    cp = Catalog_page(driver)
-    cp.use_filter_1()
-    time.sleep(5)
-    cp.select_products_1()
-
+    mp.open_birdhouses_page()
     mp.open_eyepieces_page()
-    time.sleep(3)
-
-    cp.use_filter_2()
     time.sleep(5)
-    cp.select_products_2()
 
-    crp = Cart_page(driver)
-    crp.click_checkout_button()
-
-    cip = Client_information_page(driver)
-    cip.input_information()
-
-    print("Test finish")
-    # time.sleep(2)
+    print("Test1 finish")
     driver.quit()
 
 
-# # @pytest.mark.run(order=1)
-# def test_buy_product_2(set_up, set_group):
-#   # очистка лишних записей в терминале с помощью options
+def test_buy_product_2(set_up, set_group):
+    # очистка лишних записей в терминале с помощью options
+    options = Options()
+    options.add_experimental_option('excludeSwitches', ['enable-logging'])
+    options.add_argument("--headless")
+    chrome_service = Service(
+        executable_path='C:\\Users\\admin\\Desktop\\QA\\автоматизация_тест\\resourse\\chrome\\chromedriver.exe',
+        chrome_options=options)
+    driver = webdriver.Chrome(service=chrome_service)
+
+    print("Start test2")
+
+    mp = Main_page(driver)
+    mp.open_birdhouses_page()
+
+    cp = Catalog_page(driver)
+    cp.item_to_cart_1()
+
+    mp.open_eyepieces_page()
+
+    cp.item_to_cart_2()
+
+    crp = Cart_page(driver)
+    crp.product_confirmation()
+
+    cip = Client_information_page(driver)
+    cip.input_information()
+    time.sleep(5)
+
+    print("Test_2 finish")
+    driver.quit()
+
+# def test_buy_product_3(set_up, set_group):
+#     # очистка лишних записей в терминале с помощью options
 #     options = Options()
 #     options.add_experimental_option('excludeSwitches', ['enable-logging'])
-#     chrome_service = Service(executable_path = 'C:\\Users\\admin\\Desktop\\QA\\автоматизация_тест\\resourse\\chrome'
-#                                                '\\chromedriver.exe', chrome_options=options)
+#     options.add_argument("--headless")
+#     chrome_service = Service(
+#         executable_path='C:\\Users\\admin\\Desktop\\QA\\автоматизация_тест\\resourse\\chrome\\chromedriver.exe',
+#         chrome_options=options)
 #     driver = webdriver.Chrome(service=chrome_service)
 #
-#     print("Start test 2")
+#     print("Start test")
 #
 #     mp = Main_page(driver)
-#     mp.open_toys_page()
+#     mp.open_birdhouses_page()
 #
 #     cp = Catalog_page(driver)
-#     cp.use_filter_1()
-#     time.sleep(5)
-#     cp.select_products_1()
+#     cp.item_to_cart_1()
 #
 #     mp.open_eyepieces_page()
 #
-#     cp.use_filter_2()
-#     time.sleep(5)
-#     cp.select_products_2()
+#     cp.item_to_cart_2()
 #
-#     cp = Cart_page(driver)
-#     cp.click_checkout_button()
+#     crp = Cart_page(driver)
+#     crp.product_confirmation()
 #
 #     cip = Client_information_page(driver)
 #     cip.input_information()
+#     time.sleep(5)
 #
-#     time.sleep(2)
+#     print("Test finish")
 #     driver.quit()
 
-
+# def test_buy_product_4(set_up, set_group):
+#     # очистка лишних записей в терминале с помощью options
+#     options = Options()
+#     options.add_experimental_option('excludeSwitches', ['enable-logging'])
+#     options.add_argument("--headless")
+#     chrome_service = Service(
+#         executable_path='C:\\Users\\admin\\Desktop\\QA\\автоматизация_тест\\resourse\\chrome\\chromedriver.exe',
+#         chrome_options=options)
+#     driver = webdriver.Chrome(service=chrome_service)
+#
+#     print("Start test")
+#
+#     mp = Main_page(driver)
+#     mp.open_birdhouses_page()
+#
+#     cp = Catalog_page(driver)
+#     cp.item_to_cart_1()
+#
+#     mp.open_eyepieces_page()
+#
+#     cp.item_to_cart_2()
+#
+#     crp = Cart_page(driver)
+#     crp.product_confirmation()
+#
+#     cip = Client_information_page(driver)
+#     cip.input_information()
+#     time.sleep(5)
+#
+#     print("Test finish")
+#     driver.quit()
