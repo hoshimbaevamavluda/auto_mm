@@ -51,7 +51,7 @@ class Base():
         except Exception as e:
             print(f"Произошла ошибка при наведении на элемент: {e}")
 
-    '''Метод навигации на элемент'''
+    '''Метод навигации и клика на элемент'''
 
     def hover_and_click_to_element(self, element):
         try:
@@ -70,4 +70,13 @@ class Base():
 
         except Exception as e:
             print(f"Произошла ошибка при наведении на элемент или клике: {e}")
+
+    '''Метод для ввода текста'''
+    def input_text(self, element, text, field_name=""):
+        try:
+            element.click()
+            element.send_keys(text)
+            print(f"Ввод {field_name} успешно выполнен")
+        except Exception as e:
+            print(f"Ошибка при вводе {field_name}: {e}")
 

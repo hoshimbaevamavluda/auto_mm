@@ -15,21 +15,20 @@ class Client_information_page(Base):
         self.driver = driver
 
     # Locators
-
+    last_name = "//input[@name='lastname']"
     first_name = "//input[@name='firstname']"
-    last_name = "//input[@placeholder='Введите фамилию']"
-    phone_number = "//input[@id='input-phone1240']"
+    phone_number = "//input[@type='phone']"
     checkbox = "//span[@class='ke-checkbox--indicator']"
 
 
     # Getters
-    def get_first_name(self):
-        return WebDriverWait(self.driver, 30).until(
-            EC.element_to_be_clickable((By.XPATH, self.first_name)))
-
     def get_last_name(self):
         return WebDriverWait(self.driver, 30).until(
             EC.element_to_be_clickable((By.XPATH, self.last_name)))
+
+    def get_first_name(self):
+        return WebDriverWait(self.driver, 30).until(
+            EC.element_to_be_clickable((By.XPATH, self.first_name)))
 
     def get_phone_number(self):
         return WebDriverWait(self.driver, 30).until(
@@ -43,35 +42,32 @@ class Client_information_page(Base):
     # Actions
 
     def input_first_name(self, first_name):
-        self.get_first_name().click()
-        self.get_first_name().send_keys(first_name)
-        print("Ввод имени")
-        time.sleep(2)
+        self.input_text(self.get_first_name(), first_name, "имени")
 
     def input_last_name(self, last_name):
-        self.hover_to_element(self.get_last_name())
-        self.get_last_name().send_keys(last_name)
-        print("Ввод фамилии")
-        time.sleep(2)
+        self.input_text(self.get_last_name(), last_name, "фамилии")
 
     def input_phone_number(self, phone_number):
-        self.get_phone_number().send_keys(phone_number)
-        print("Ввод номера телефона")
-        time.sleep(2)
+        self.hover_to_element(self.get_phone_number())
+        self.input_text(self.get_phone_number(), phone_number, "номера телефона")
 
     def click_checkbox(self):
-        self.get_checkbox().click()
+        self.hover_and_click_to_element(self.get_checkbox())
         print("Клик чекбокса")
-        time.sleep(2)
 
     # Metods
     def input_information(self):
         Logger.add_start_step(method="input_information")
         self.get_current_url()
+        time.sleep(5)
         self.input_last_name("Ivanov")
+        time.sleep(2)
         self.input_first_name("Ivan")
-        self.input_phone_number("956586546")
+        time.sleep(2)
+        self.input_phone_number("9565865468")
+        time.sleep(2)
         self.click_checkbox()
+        time.sleep(2)
         Logger.add_end_step(url=self.driver.current_url, method="input_information")
 
 

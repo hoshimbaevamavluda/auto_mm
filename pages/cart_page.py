@@ -1,5 +1,7 @@
 import time
+from lib2to3.pgen2 import driver
 
+from selenium.common import NoSuchElementException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
@@ -16,7 +18,7 @@ class Cart_page(Base):
 
     # Locators
 
-    checkout_button = "//div[@class='cart-enter']"
+    checkout_button = "//a[@id='cart-button']"
     cart_page_title = "//span[text() = 'Ваша корзина,']"
     product_name_in_cart_1 = "(//a[@data-test-id='link__product-title'])[1]"
     product_name_in_cart_2 = "(//a[@data-test-id='link__product-title'])[2]"
@@ -41,19 +43,33 @@ class Cart_page(Base):
             EC.element_to_be_clickable((By.XPATH, self.product_name_in_cart_2)))
 
     def get_button_go_checkout(self):
-        return WebDriverWait(self.driver, 30).until(
-            EC.element_to_be_clickable((By.XPATH, self.button_go_checkout)))
+        return WebDriverWait(self.driver, 100).until(
+            EC.presence_of_element_located((By.XPATH, self.button_go_checkout)))
 
     # Actions
 
     def click_checkout_button(self):
-        self.get_checkout_button().click()
+        self.hover_and_click_to_element(self.get_checkout_button())
         print("Клик кнопки корзины")
-        time.sleep(10)
 
     def click_button_go_checkout(self):
-        self.driver.execute_script("arguments[0].click();", self.get_button_go_checkout().click())
-        print("Клик кнопки 'Перейти к оформлению'")
+        self.get_button_go_checkout().click()
+        # print("Начало чекаут")
+        # while True:
+        #     try:
+        #         # Locate the button
+        #         button = self.driver.find_element(By.XPATH, "//button[@data-test-id='button__go-checkout']")  # Replace with the appropriate selector
+        #         print("Я здесь")
+        #         # Check if the button is enabled
+        #         if button.is_enabled():
+        #             # Click the button if it is enabled
+        #             button.click()
+        #             print("Button is enabled and clicked!")
+        #             break
+        #     except NoSuchElementException:
+        #         # Handle the case where the button is not yet present in the DOM
+        #         pass
+        # print("Клик кнопки 'Перейти к оформлению'")
 
 
     # Metods
@@ -61,12 +77,13 @@ class Cart_page(Base):
     def product_confirmation(self):
         Logger.add_start_step(method="product_confirmation")
         self.get_current_url()
+        time.sleep(5)
         self.click_checkout_button()
-        time.sleep(2)
         self.text_checking(self.get_cart_page_title(), 'Ваша корзина,')
-        time.sleep(10)
         self.get_screenshot()
+        time.sleep(5)
         self.click_button_go_checkout()
+        time.sleep(5)
         Logger.add_end_step(url=self.driver.current_url, method="product_confirmation")
 
 
